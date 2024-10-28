@@ -10,11 +10,11 @@ import threading
 
 def open_hwp_file(hwp_file, output_pdf):
     hwp = win32com.client.Dispatch("HWPFrame.HwpObject")
-    hwp.RegisterModule('')
+    hwp.RegisterModule("FilePathCheckDLL", "SecurityModuleHnc") # 한글 보안모듈 스킵(dll 레지스트리 추가 필요)
     hwp.Open(hwp_file)  # HWP 파일 열기
-    time.sleep(2)
+    # time.sleep(2)
     hwp.SaveAs(output_pdf, "PDF")  # PDF로 저장
-    time.sleep(2)
+    # time.sleep(2)
     # pyautogui.moveTo(1920, 0)
     # pyautogui.click(1920, 0, clicks=1)
     # hwp.Clear()
@@ -24,11 +24,11 @@ def open_hwp_file(hwp_file, output_pdf):
 def convert_hwp_to_pdf_windows(hwp_file, output_pdf):
     print(f"Converting HWP file to PDF: {hwp_file} (Windows)")
     try:
-        pyautogui.moveTo(941, 570)
+        # pyautogui.moveTo(941, 570)
         thread = threading.Thread(target=open_hwp_file, args=(hwp_file, output_pdf))
         thread.start()
-        time.sleep(1)
-        pyautogui.click(clicks=3, interval=1)
+        # time.sleep(1)
+        # pyautogui.click(clicks=3, interval=1)
         thread.join()
         return output_pdf
     except Exception as e:
