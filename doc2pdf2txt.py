@@ -11,7 +11,7 @@ import threading
 def open_hwp_file(hwp_file, output_pdf):
     hwp = win32com.client.Dispatch("HWPFrame.HwpObject")
     hwp.RegisterModule("FilePathCheckDLL", "SecurityModuleHnc") # 한글 보안모듈 스킵(dll 레지스트리 추가 필요)
-    hwp.Open(hwp_file)  # HWP 파일 열기
+    hwp.Open(hwp_file, arg="suspendpassword:True; versionworning:False")  # HWP 파일 열기
     # time.sleep(2)
     hwp.SaveAs(output_pdf, "PDF")  # PDF로 저장
     # time.sleep(2)
